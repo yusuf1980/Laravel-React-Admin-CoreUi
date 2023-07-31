@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 // import Checkbox from "@/Components/Checkbox";
 // import GuestLayout from "@/Layouts/GuestLayout";
 // import InputError from "@/Components/InputError";
@@ -18,6 +18,9 @@ import {
     CInputGroup,
     CInputGroupText,
     CRow,
+    CCardTitle,
+    CFormFeedback,
+    CAlert
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 import { cilLockLocked, cilUser } from "@coreui/icons";
@@ -29,16 +32,25 @@ export default function Login({ status, canResetPassword }) {
         remember: false,
     });
 
+    const [validated, setValidated] = useState(false);
+
     useEffect(() => {
         return () => {
             reset("password");
         };
     }, []);
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
 
         post(route("login"));
+
+        // console.log(errors.email);
+        // if (errors.email || errors.password) {
+        //     data.email = "";
+        //     data.password = "";
+        //     setValidated(true)
+        // }
     };
 
     return (
@@ -114,8 +126,19 @@ export default function Login({ status, canResetPassword }) {
                     <CCol md={8}>
                         <CCardGroup>
                             <CCard className="p-4">
+                                <CCardTitle>
+                                    {status && (
+                                        <div className="mb-4">{status}</div>
+                                    )}
+                                    {errors.email &&<CAlert color="danger">
+                                        {errors.email}
+                                    </CAlert>}
+                                </CCardTitle>
                                 <CCardBody>
-                                    <CForm onSubmit={submit}>
+                                    <CForm
+                                        onSubmit={submit}
+                                        validated={validated}
+                                    >
                                         <h1>Login</h1>
                                         <p className="text-medium-emphasis">
                                             Sign In to your account
@@ -126,9 +149,12 @@ export default function Login({ status, canResetPassword }) {
                                             </CInputGroupText>
                                             <CFormInput
                                                 type="email"
+                                                name="email"
                                                 placeholder="Email"
                                                 autoComplete="Email"
                                                 value={data.email}
+                                                required
+                                                autoFocus
                                                 onChange={(e) =>
                                                     setData(
                                                         "email",
@@ -136,7 +162,11 @@ export default function Login({ status, canResetPassword }) {
                                                     )
                                                 }
                                             />
+                                            <CFormFeedback invalid>
+                                                {errors.email}
+                                            </CFormFeedback>
                                         </CInputGroup>
+
                                         <CInputGroup className="mb-4">
                                             <CInputGroupText>
                                                 <CIcon icon={cilLockLocked} />
@@ -147,6 +177,7 @@ export default function Login({ status, canResetPassword }) {
                                                 placeholder="Password"
                                                 autoComplete="current-password"
                                                 value={data.password}
+                                                required
                                                 onChange={(e) =>
                                                     setData(
                                                         "password",
@@ -154,10 +185,14 @@ export default function Login({ status, canResetPassword }) {
                                                     )
                                                 }
                                             />
+                                            <CFormFeedback invalid>
+                                                {errors.password}
+                                            </CFormFeedback>
                                         </CInputGroup>
                                         <CRow>
                                             <CCol xs={6}>
                                                 <CButton
+                                                    type="submit"
                                                     color="primary"
                                                     className="px-4"
                                                     disabled={processing}
@@ -166,12 +201,17 @@ export default function Login({ status, canResetPassword }) {
                                                 </CButton>
                                             </CCol>
                                             <CCol xs={6} className="text-right">
-                                                <CButton
-                                                    color="link"
-                                                    className="px-0"
-                                                >
-                                                    Forgot password?
-                                                </CButton>
+                                                {canResetPassword && (
+                                                    <Link
+                                                        href={route(
+                                                            "password.request"
+                                                        )}
+                                                        color="link"
+                                                        className="px-0"
+                                                    >
+                                                        Forgot password?
+                                                    </Link>
+                                                )}
                                             </CCol>
                                         </CRow>
                                     </CForm>

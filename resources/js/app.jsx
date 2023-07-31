@@ -1,7 +1,5 @@
 import './bootstrap';
-// import '../css/app.css';
 import * as bootstrap from 'bootstrap';
-// import '@coreui/coreui/dist/css/coreui.min.css'
 
 import { createRoot } from 'react-dom/client';
 import { createInertiaApp } from '@inertiajs/react';

@@ -36,11 +36,22 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 </a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    Link
-                                </a>
+                                <Link
+                                    href={route("login")}
+                                    className="nav-link"
+                                >
+                                    Log in
+                                </Link>
                             </li>
-                            <li className="nav-item dropdown">
+                            <li className="nav-item">
+                                <Link
+                                    href={route("register")}
+                                    className="nav-link"
+                                >
+                                    Register
+                                </Link>
+                            </li>
+                            {/* <li className="nav-item dropdown">
                                 <a
                                     className="nav-link dropdown-toggle"
                                     href="#"
@@ -73,9 +84,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link disabled">Disabled</a>
-                            </li>
+                            </li> */}
                         </ul>
-                        <form className="d-flex" role="search">
+                        {/* <form className="d-flex" role="search">
                             <input
                                 className="form-control me-2"
                                 type="search"
@@ -88,13 +99,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             >
                                 Search
                             </button>
-                        </form>
+                        </form> */}
                     </div>
                 </div>
             </nav>
             <Head title="Welcome" />
             <div className="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-                <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
+                {/* <div className="sm:fixed sm:top-0 sm:right-0 p-6 text-right">
                     {auth.user ? (
                         <Link
                             href={route("dashboard")}
@@ -119,13 +130,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                             </Link>
                         </>
                     )}
-                </div>
+                </div> */}
 
                 <div className="max-w-7xl mx-auto p-6 lg:p-8">
-                    <CButton color="primary" size="lg">
-                        Primary button
-                    </CButton>
-
                     {/* <div className="flex justify-center">
                         <svg
                             viewBox="0 0 62 65"
