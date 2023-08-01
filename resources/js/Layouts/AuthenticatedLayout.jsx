@@ -1,15 +1,20 @@
-import { useState } from 'react';
-import ApplicationLogo from '@/Components/ApplicationLogo';
-import Dropdown from '@/Components/Dropdown';
-import NavLink from '@/Components/NavLink';
-import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import { useState } from "react";
+import ApplicationLogo from "@/Components/ApplicationLogo";
+import Dropdown from "@/Components/Dropdown";
+import NavLink from "@/Components/NavLink";
+import ResponsiveNavLink from "@/Components/ResponsiveNavLink";
+import { Link } from "@inertiajs/react";
+import AppHeader from "./AppHeader";
+import AppSidebar from "./AppSidebar";
+import AppFooter from "./AppFooter";
 
 export default function Authenticated({ user, header, children }) {
-    const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+  const [showingNavigationDropdown, setShowingNavigationDropdown] =
+    useState(false);
 
-    return (
-        <div className="min-h-screen bg-gray-100">
+  return (
+    <>
+      {/* <div className="min-h-screen bg-gray-100">
             <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
@@ -120,6 +125,18 @@ export default function Authenticated({ user, header, children }) {
             )}
 
             <main>{children}</main>
+        </div> */}
+      <div>
+        <AppSidebar />
+        <div className="wrapper d-flex flex-column min-vh-100 bg-light">
+          <AppHeader user={user} />
+          <div className="body flex-grow-1 px-3">
+            test
+            {/* <AppContent /> */}
+          </div>
+          <AppFooter />
         </div>
-    );
+      </div>
+    </>
+  );
 }
